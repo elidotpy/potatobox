@@ -1,24 +1,29 @@
 package io.github.elidotpy
 
+import io.github.kite.classes.DisposableManager
 import com.badlogic.gdx.Game
-import io.github.elidotpy.kiteEngineFeatures.DisposableManager
-import io.github.elidotpy.kiteEngineFeatures.KiteLogger
-import io.github.elidotpy.kiteEngineFeatures.KiteLoggerMode
-import io.github.elidotpy.kiteEngineFeatures.VerbosityLevels
+import com.badlogic.gdx.Gdx
+import io.github.elidotpy.screens.LoadingScreen
+import io.github.kite.classes.KiteLogger
+import io.github.kite.classes.enums.KiteLoggerMode
+import io.github.kite.classes.enums.VerbosityLevels
 
-/** [com.badlogic.gdx.ApplicationListener] implementation shared by all platforms.  */
 class Main : Game() {
-    // "wow, i wish i could just have one disposableManager for all my classes."
-    val disposableManager = DisposableManager(
-        KiteLogger(VerbosityLevels.LOW, KiteLoggerMode.PRINTLN)
-    )
     val logger = KiteLogger(VerbosityLevels.HIGH, KiteLoggerMode.PRINTLN)
+    val dm = DisposableManager(
+        logger
+    )
 
     override fun create() {
-        setScreen(FirstScreen(this))
+        setScreen(LoadingScreen(this))
+        proportions()
+    }
+
+    fun proportions() {
+        Gdx.graphics.setWindowedMode(1920 / 2, 1008 / 2)
     }
 
     override fun dispose() {
-        disposableManager.dispose()
+        dm.dispose()
     }
 }
