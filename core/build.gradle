@@ -10,4 +10,5 @@ dependencies {
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
   }
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0"
 }
